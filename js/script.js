@@ -3,40 +3,56 @@ function getRandomInt(min, max) {
   }
 
 function palabraSecreta (){
-    var palabras = ["DESAYUNO","GENIO","ESTADIO","LUNA","HOJA"];
+    var palabras = ["DESAYUNO","GENIO","ESTADIO","LUNA","HOJA","ELEFANTE"];
     var cantidadPalabras = getRandomInt(0, palabras.length);
     return palabras[cantidadPalabras];
 }
 
 var botonInicioPresionado = false;
-var arrayLetras = [];
+var palabraRandom;
+var arrayLetrasCorrectas = [];
+var arrayLetrasIncorrectas =[];
+
+function agregarLetra (arrayLetras, keyName){
+    var repetido = false;
+
+    if (arrayLetras[0] == ""){
+            arrayLetras.push(keyName);
+    }else{
+        for (i=0; i < arrayLetras.length; i++){
+            if (keyName == arrayLetras[i]){
+                repetido = true;
+            }
+        }
+        if (!repetido){
+            arrayLetras.push(keyName);
+        }
+    }
+    return arrayLetras;
+};
 
 document.addEventListener('keydown', function(event){
     var keyName = event.key;
-    var repetido = false;
 
     keyName = keyName.toUpperCase();
-    console.log(keyName);
+    const buscar = new RegExp(keyName);
+    //console.log(keyName);
 
     if (validarCaracter(keyName)){
-        if (arrayLetras[0] == ""){
-            arrayLetras.push(keyName);
+        if (buscar.test(palabraRandom)){
+            agregarLetra(arrayLetrasCorrectas,keyName)
         }else{
-            for (i=0; i < arrayLetras.length; i++){
-                if (keyName == arrayLetras[i]){
-                    repetido = true;
-                }
-            }
-            if (!repetido){
-                arrayLetras.push(keyName);
-            }
+            agregarLetra(arrayLetrasIncorrectas,keyName)
         }
-        console.log(arrayLetras);
+    }
+    console.log(arrayLetrasCorrectas);
+    console.log(arrayLetrasIncorrectas);
+    for (j=0; j < arrayLetrasCorrectas.length; j++){
+        drawTexto(palabraRandom,arrayLetrasCorrectas[j]);
+        console.log("llamada a funcion drawtexto" + " " + j);
     }
         
 });
-
-
 
 function validarCaracter(caracter){
     var valido = false;
@@ -50,9 +66,12 @@ function validarCaracter(caracter){
 var iniciarJuego = document.querySelector("#btn-iniciar");
 iniciarJuego.addEventListener("click", function (evt){
     evt.preventDefault();
-    var palabraRandom = palabraSecreta();
+    
+    arrayLetrasCorrectas = [];
+    arrayLetrasIncorrectas =[];
+    palabraRandom = palabraSecreta();
     console.log(palabraRandom);
 
-    drawGuiones(palabraRandom.length);
+    drawGuiones(palabraRandom);
     botonInicioPresionado = true;
 })

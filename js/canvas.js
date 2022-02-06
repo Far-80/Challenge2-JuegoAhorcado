@@ -3,9 +3,17 @@ var pincel = pantalla.getContext("2d");
 //pincel.fillStyle = "lightgrey";
 //pincel.fillRect (0,0,1200,800);
 
+function drawLetra(letra, x , y){
+  pincel.font = "30px Comic Sans MS";
+  pincel.fillStyle = "green";
+  pincel.fillText(letra, x , y);
+  pincel.stroke();
+}
+
 function drawBase(){
   pincel.fillStyle = "lightgrey";
   pincel.fillRect (0,0,1200,800);
+
   pincel.beginPath();
   pincel.moveTo(150,400);
   pincel.lineWidth = 3;
@@ -51,7 +59,7 @@ function draw() {
   }
 
 
-  function drawGuiones(cantidadGuiones){
+  function drawGuiones(palabraSecreta){
     var separacion = 350;
     
     pincel.clearRect(0,0,1200,800);
@@ -59,9 +67,24 @@ function draw() {
     pincel.beginPath();
     pincel.moveTo(separacion,550);
     pincel.lineWidth = 3;
-    for(i=0; i < cantidadGuiones; i++){
+    for(i=0; i < palabraSecreta.length; i++){
       pincel.lineTo(separacion + 40,550);
       pincel.stroke();
+      //drawLetra (palabraSecreta[i],separacion + 10,530);
+      separacion = separacion + 50;
+      pincel.moveTo(separacion,550);
+    }
+  }
+
+  function drawTexto(palabraSecreta, letra){
+    var separacion = 350;
+ 
+    pincel.beginPath();
+    pincel.moveTo(separacion,550);
+    for(i=0; i < palabraSecreta.length; i++){
+      if (palabraSecreta[i] == letra){
+          drawLetra (palabraSecreta[i],separacion + 10,530);
+      }
       separacion = separacion + 50;
       pincel.moveTo(separacion,550);
     }
