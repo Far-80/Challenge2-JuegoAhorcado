@@ -1,7 +1,19 @@
 var pantalla = document.querySelector("canvas");
 var pincel = pantalla.getContext("2d");
-pincel.fillStyle = "lightgrey";
-pincel.fillRect (0,0,800,600);
+//pincel.fillStyle = "lightgrey";
+//pincel.fillRect (0,0,1200,800);
+
+function drawBase(){
+  pincel.fillStyle = "lightgrey";
+  pincel.fillRect (0,0,1200,800);
+  pincel.beginPath();
+  pincel.moveTo(150,400);
+  pincel.lineWidth = 3;
+  pincel.lineTo(100,450);
+  pincel.lineTo(200,450);
+  pincel.closePath();          // base 
+  pincel.stroke();
+}
 
 function draw() {
     var canvas = document.querySelector('canvas');
@@ -41,7 +53,9 @@ function draw() {
 
   function drawGuiones(cantidadGuiones){
     var separacion = 350;
-    pincel.clearRect(separacion,550,800,3);
+    
+    pincel.clearRect(0,0,1200,800);
+    drawBase();
     pincel.beginPath();
     pincel.moveTo(separacion,550);
     pincel.lineWidth = 3;
@@ -52,3 +66,5 @@ function draw() {
       pincel.moveTo(separacion,550);
     }
   }
+
+  drawBase();
