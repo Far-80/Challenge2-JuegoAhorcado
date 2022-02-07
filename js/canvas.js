@@ -1,5 +1,7 @@
 var pantalla = document.querySelector("canvas");
 var pincel = pantalla.getContext("2d");
+
+pincel.lineWidth = 3;
 //pincel.fillStyle = "lightgrey";
 //pincel.fillRect (0,0,1200,800);
 
@@ -16,7 +18,7 @@ function drawBase(){
   pincel.stroke();
 }
 
-function draw() {
+function drawFinJuego() {
     var canvas = document.querySelector('canvas');
     if (canvas.getContext){
       var ctx = canvas.getContext('2d');
@@ -28,14 +30,14 @@ function draw() {
       ctx.lineTo(100,450);
       ctx.lineTo(200,450);
       ctx.closePath();          // base 
-      ctx.lineTo(150,100);      // linea vertical
+      ctx.lineTo(150,100);      // linea columna
       ctx.lineTo(300,100);      // linea horizontal
-      ctx.lineTo(300,140);
+      ctx.lineTo(300,140);      //soga
       ctx.stroke();
-      
+
       ctx.beginPath();
       ctx.arc(300,170,30,0,Math.PI*2,true); // Cabeza
-      ctx.stroke();
+      //ctx.stroke();
 
       //ctx.beginPath();
       ctx.moveTo(300,200);
@@ -51,6 +53,35 @@ function draw() {
     }
   }
 
+  function drawColumna() {
+    pincel.moveTo(150,400);
+    pincel.lineTo(150,100);      // linea columna
+    pincel.stroke();
+  }
+
+  function drawHorcaVertical() {
+    pincel.moveTo(150,100);
+    pincel.lineTo(300,100);      // linea horizontal
+    pincel.stroke();
+  }
+
+  function drawSoga() {
+    pincel.moveTo(300,100);
+    pincel.lineTo(300,140);      //soga
+    pincel.stroke();
+  }
+
+  function drawCabeza(){
+    pincel.beginPath();
+    pincel.arc(300,170,30,0,Math.PI*2,true); // Cabeza
+    pincel.stroke();
+  }
+
+  function drawTorso () {
+    pincel.moveTo(300,200);
+    pincel.lineTo(300,320);      //torso
+    pincel.stroke();
+  }
 
   function drawGuiones(palabraSecreta){
     var separacion = 350;
@@ -94,6 +125,22 @@ function draw() {
       pincel.moveTo(separacion,400);
     }
     pincel.stroke();
+    
+    if (arrayLetrasIncorrectas.length == 1){
+      drawColumna();
+    }
+    if (arrayLetrasIncorrectas.length == 2){
+      drawHorcaVertical();
+    }
+    if (arrayLetrasIncorrectas.length == 3){
+      drawSoga();
+    }
+    if (arrayLetrasIncorrectas.length == 4){
+      drawCabeza();
+    }
+    if (arrayLetrasIncorrectas.length == 5){
+      drawTorso();
+    }
   }
 
   drawBase();

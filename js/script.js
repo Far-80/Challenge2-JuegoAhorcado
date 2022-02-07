@@ -50,9 +50,7 @@ document.addEventListener('keydown', function(event){
         drawLetraCorrecta(palabraRandom,arrayLetrasCorrectas[j]);
     }
 
-    //for (g=0; g < arrayLetrasIncorrectas.length; g++){
-        drawLetraIncorrecta(arrayLetrasIncorrectas);
-    //}
+    drawLetraIncorrecta(arrayLetrasIncorrectas);
         
 });
 
