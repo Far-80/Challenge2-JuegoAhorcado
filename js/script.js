@@ -36,7 +36,6 @@ document.addEventListener('keydown', function(event){
 
     keyName = keyName.toUpperCase();
     const buscar = new RegExp(keyName);
-    //console.log(keyName);
 
     if (validarCaracter(keyName)){
         if (buscar.test(palabraRandom)){
@@ -48,9 +47,12 @@ document.addEventListener('keydown', function(event){
     console.log(arrayLetrasCorrectas);
     console.log(arrayLetrasIncorrectas);
     for (j=0; j < arrayLetrasCorrectas.length; j++){
-        drawTexto(palabraRandom,arrayLetrasCorrectas[j]);
-        console.log("llamada a funcion drawtexto" + " " + j);
+        drawLetraCorrecta(palabraRandom,arrayLetrasCorrectas[j]);
     }
+
+    //for (g=0; g < arrayLetrasIncorrectas.length; g++){
+        drawLetraIncorrecta(arrayLetrasIncorrectas);
+    //}
         
 });
 

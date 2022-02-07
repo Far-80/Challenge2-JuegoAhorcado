@@ -3,13 +3,6 @@ var pincel = pantalla.getContext("2d");
 //pincel.fillStyle = "lightgrey";
 //pincel.fillRect (0,0,1200,800);
 
-function drawLetra(letra, x , y){
-  pincel.font = "30px Comic Sans MS";
-  pincel.fillStyle = "green";
-  pincel.fillText(letra, x , y);
-  pincel.stroke();
-}
-
 function drawBase(){
   pincel.fillStyle = "lightgrey";
   pincel.fillRect (0,0,1200,800);
@@ -70,24 +63,37 @@ function draw() {
     for(i=0; i < palabraSecreta.length; i++){
       pincel.lineTo(separacion + 40,550);
       pincel.stroke();
-      //drawLetra (palabraSecreta[i],separacion + 10,530);
       separacion = separacion + 50;
       pincel.moveTo(separacion,550);
     }
   }
 
-  function drawTexto(palabraSecreta, letra){
+  function drawLetraCorrecta(palabraSecreta, letra){
     var separacion = 350;
- 
-    pincel.beginPath();
-    pincel.moveTo(separacion,550);
+    pincel.font = "30px Comic Sans MS";
+    pincel.fillStyle = "green";
+
     for(i=0; i < palabraSecreta.length; i++){
       if (palabraSecreta[i] == letra){
-          drawLetra (palabraSecreta[i],separacion + 10,530);
+          pincel.fillText(palabraSecreta[i],separacion + 10,530);
       }
       separacion = separacion + 50;
       pincel.moveTo(separacion,550);
     }
+    pincel.stroke();
+  }
+
+  function drawLetraIncorrecta(arrayLetrasIncorrectas){
+    var separacion = 450;
+    pincel.font = "30px Comic Sans MS";
+    pincel.fillStyle = "red";
+
+    for(g=0; g < arrayLetrasIncorrectas.length; g++){
+      pincel.fillText(arrayLetrasIncorrectas[g],separacion,400);
+      separacion = separacion + 30;
+      pincel.moveTo(separacion,400);
+    }
+    pincel.stroke();
   }
 
   drawBase();
