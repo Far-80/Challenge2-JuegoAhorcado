@@ -17,7 +17,7 @@ function drawBase(){
   pincel.closePath();          // base 
   pincel.stroke();
 }
-
+/*
 function drawFinJuego() {
     var canvas = document.querySelector('canvas');
     if (canvas.getContext){
@@ -51,7 +51,7 @@ function drawFinJuego() {
       ctx.lineTo(370,190);      //brazo der
       ctx.stroke();
     }
-  }
+  }*/
 
   function drawColumna() {
     pincel.moveTo(150,400);
@@ -59,14 +59,9 @@ function drawFinJuego() {
     pincel.stroke();
   }
 
-  function drawHorcaVertical() {
+  function drawSoga() {
     pincel.moveTo(150,100);
     pincel.lineTo(300,100);      // linea horizontal
-    pincel.stroke();
-  }
-
-  function drawSoga() {
-    pincel.moveTo(300,100);
     pincel.lineTo(300,140);      //soga
     pincel.stroke();
   }
@@ -80,6 +75,30 @@ function drawFinJuego() {
   function drawTorso () {
     pincel.moveTo(300,200);
     pincel.lineTo(300,320);      //torso
+    pincel.stroke();
+  }
+
+  function drawPiernaIzq (){
+    pincel.moveTo(300,320);      
+    pincel.lineTo(250,400);      // pierna izq  
+    pincel.stroke();
+  }
+
+  function drawPiernaDer (){
+    pincel.moveTo(300,320);      
+    pincel.lineTo(350,400);      // pierna der  
+    pincel.stroke();
+  }
+
+  function drawBrazoIzq (){      
+    pincel.moveTo(300,260);
+    pincel.lineTo(230,190);      //brazo izq
+    pincel.stroke();
+  }
+
+  function drawBrazoDer (){      
+    pincel.moveTo(300,260);
+    pincel.lineTo(370,190);      //brazo izq
     pincel.stroke();
   }
 
@@ -116,7 +135,7 @@ function drawFinJuego() {
 
   function drawLetraIncorrecta(arrayLetrasIncorrectas){
     var separacion = 450;
-    pincel.font = "30px Comic Sans MS";
+    pincel.font = "25px Comic Sans MS";
     pincel.fillStyle = "red";
 
     for(g=0; g < arrayLetrasIncorrectas.length; g++){
@@ -130,17 +149,33 @@ function drawFinJuego() {
       drawColumna();
     }
     if (arrayLetrasIncorrectas.length == 2){
-      drawHorcaVertical();
-    }
-    if (arrayLetrasIncorrectas.length == 3){
       drawSoga();
     }
-    if (arrayLetrasIncorrectas.length == 4){
+    if (arrayLetrasIncorrectas.length == 3){
       drawCabeza();
     }
-    if (arrayLetrasIncorrectas.length == 5){
+    if (arrayLetrasIncorrectas.length == 4){
       drawTorso();
     }
+    if (arrayLetrasIncorrectas.length == 5){
+      drawPiernaDer();
+    }
+    if (arrayLetrasIncorrectas.length == 6){
+      drawPiernaIzq();
+    }
+    if (arrayLetrasIncorrectas.length == 7){
+      drawBrazoDer();
+    }
+    if (arrayLetrasIncorrectas.length == 8){
+      drawBrazoIzq();
+    }
+  }
+
+  function drawFinJuego(texto){
+    pincel.font = "30px Comic Sans MS";
+    pincel.fillStyle = "red";
+    pincel.fillText(texto,420,200);
+    pincel.stroke();
   }
 
   drawBase();

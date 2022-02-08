@@ -12,6 +12,7 @@ var botonInicioPresionado = false;
 var palabraRandom;
 var arrayLetrasCorrectas = [];
 var arrayLetrasIncorrectas =[];
+var finalJuego;
 
 function agregarLetra (arrayLetras, keyName){
     var repetido = false;
@@ -31,26 +32,53 @@ function agregarLetra (arrayLetras, keyName){
     return arrayLetras;
 };
 
+function finJuego (cantidadIntentos){
+    var fin = false;
+    if (cantidadIntentos == 8){
+        fin = true;
+    }
+    return fin;
+}
+
+function ganador (cantidadLetrasPalabraSecreta, aciertos){
+    var fin = false;
+    if (cantidadLetrasPalabraSecreta == aciertos){
+        fin = true;
+    }
+    return fin;
+}
+
 document.addEventListener('keydown', function(event){
     var keyName = event.key;
-
     keyName = keyName.toUpperCase();
     const buscar = new RegExp(keyName);
 
-    if (validarCaracter(keyName)){
-        if (buscar.test(palabraRandom)){
-            agregarLetra(arrayLetrasCorrectas,keyName)
-        }else{
-            agregarLetra(arrayLetrasIncorrectas,keyName)
+    if (!finalJuego){
+        if (validarCaracter(keyName)){
+            if (buscar.test(palabraRandom)){
+                agregarLetra(arrayLetrasCorrectas,keyName)
+            }else{
+                agregarLetra(arrayLetrasIncorrectas,keyName)
+            }
         }
-    }
-    console.log(arrayLetrasCorrectas);
-    console.log(arrayLetrasIncorrectas);
-    for (j=0; j < arrayLetrasCorrectas.length; j++){
-        drawLetraCorrecta(palabraRandom,arrayLetrasCorrectas[j]);
-    }
 
-    drawLetraIncorrecta(arrayLetrasIncorrectas);
+        for (j=0; j < arrayLetrasCorrectas.length; j++){
+            drawLetraCorrecta(palabraRandom,arrayLetrasCorrectas[j]);
+        }
+
+        drawLetraIncorrecta(arrayLetrasIncorrectas);
+
+        if (finJuego (arrayLetrasIncorrectas.length)){
+            drawFinJuego("Fin del Juego!");
+            finalJuego = true;
+        }
+
+        if (ganador(palabraRandom.length,arrayLetrasCorrectas.length) && 
+            !finalJuego){
+                drawFinJuego("Ganaste, felicidades");
+                finalJuego = true;
+            }
+    }
         
 });
 
@@ -69,6 +97,7 @@ iniciarJuego.addEventListener("click", function (evt){
     
     arrayLetrasCorrectas = [];
     arrayLetrasIncorrectas =[];
+    finalJuego = false;
     palabraRandom = palabraSecreta();
     console.log(palabraRandom);
 
