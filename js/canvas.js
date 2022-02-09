@@ -172,8 +172,13 @@ function drawFinJuego() {
   }
 
   function drawFinJuego(texto){
+
     pincel.font = "30px Comic Sans MS";
-    pincel.fillStyle = "red";
+    if(texto == "Fin del Juego!"){
+      pincel.fillStyle ="red";
+    }else{
+      pincel.fillStyle = "green";
+    }
     pincel.fillText(texto,420,200);
     pincel.stroke();
   }

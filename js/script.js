@@ -2,7 +2,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
-function palabraSecreta (){
+function listaPalabras (){
     var palabras = ["DESAYUNO","GENIO","ESTADIO","LUNA","HOJA","ELEFANTE"];
     var cantidadPalabras = getRandomInt(0, palabras.length);
     return palabras[cantidadPalabras];
@@ -40,10 +40,25 @@ function finJuego (cantidadIntentos){
     return fin;
 }
 
-function ganador (cantidadLetrasPalabraSecreta, aciertos){
+function ganador (palabraRandom, aciertos){
     var fin = false;
-    if (cantidadLetrasPalabraSecreta == aciertos){
+
+    if (aciertos.length != 0){
         fin = true;
+        for (i=0; i < palabraRandom.length; i++){
+            if (fin){
+                for(j=0; j<aciertos.length; j++){
+                    if (palabraRandom[i] == aciertos[j]){
+                        fin = true;
+                        break;
+                    }else{
+                        fin = false;
+                    }
+                }
+            }else{
+                break;
+            }
+        }
     }
     return fin;
 }
@@ -51,10 +66,10 @@ function ganador (cantidadLetrasPalabraSecreta, aciertos){
 document.addEventListener('keydown', function(event){
     var keyName = event.key;
     keyName = keyName.toUpperCase();
-    const buscar = new RegExp(keyName);
 
     if (!finalJuego){
         if (validarCaracter(keyName)){
+            const buscar = new RegExp(keyName);
             if (buscar.test(palabraRandom)){
                 agregarLetra(arrayLetrasCorrectas,keyName)
             }else{
@@ -73,7 +88,7 @@ document.addEventListener('keydown', function(event){
             finalJuego = true;
         }
 
-        if (ganador(palabraRandom.length,arrayLetrasCorrectas.length) && 
+        if (ganador(palabraRandom,arrayLetrasCorrectas) && 
             !finalJuego){
                 drawFinJuego("Ganaste, felicidades");
                 finalJuego = true;
@@ -98,7 +113,7 @@ iniciarJuego.addEventListener("click", function (evt){
     arrayLetrasCorrectas = [];
     arrayLetrasIncorrectas =[];
     finalJuego = false;
-    palabraRandom = palabraSecreta();
+    palabraRandom = listaPalabras();
     console.log(palabraRandom);
 
     drawGuiones(palabraRandom);
