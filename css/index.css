@@ -3,6 +3,7 @@ header{
 	height: 3em;
 	color:aqua;
   text-align: center;
+  margin-bottom: 40px;
 }
 
 body{
@@ -18,20 +19,21 @@ body{
     justify-content: center;
 }
 
-.input-text{
+#input-text{
   width: 100%;
   max-width: 600px;
   padding: 50px 30px;
-  margin: 20px auto 0px;
+  margin: 10px auto 0px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
 input[type=text] {
   width: 40%;
   padding: 10px 10px;
-  margin: 10px auto 20PX;
+  margin-bottom: 10px;
   box-sizing: border-box;
   font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
   font-size: 14px;
@@ -50,7 +52,7 @@ input[type=text] {
   font-size: 14px;
   font-weight: 600;
   outline: 0;
-  padding: 16px 21px;
+  padding: 16px 16px;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -85,3 +87,6 @@ input[type=text] {
   }
 }
 
+#hide-me {
+  display:block;
+}

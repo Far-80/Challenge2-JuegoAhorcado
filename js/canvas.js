@@ -108,13 +108,13 @@ function drawFinJuego() {
     pincel.clearRect(0,0,1200,800);
     drawBase();
     pincel.beginPath();
-    pincel.moveTo(separacion,500);
+    pincel.moveTo(separacion,400);
     pincel.lineWidth = 3;
     for(i=0; i < palabraSecreta.length; i++){
-      pincel.lineTo(separacion + 40,500);
+      pincel.lineTo(separacion + 40,400);
       pincel.stroke();
       separacion = separacion + 50;
-      pincel.moveTo(separacion,500);
+      pincel.moveTo(separacion,400);
     }
   }
 
@@ -125,10 +125,10 @@ function drawFinJuego() {
 
     for(i=0; i < palabraSecreta.length; i++){
       if (palabraSecreta[i] == letra){
-          pincel.fillText(palabraSecreta[i],separacion + 10,480);
+          pincel.fillText(palabraSecreta[i],separacion + 10,390);
       }
       separacion = separacion + 50;
-      pincel.moveTo(separacion,500);
+      pincel.moveTo(separacion,400);
     }
     pincel.stroke();
   }
@@ -139,9 +139,9 @@ function drawFinJuego() {
     pincel.fillStyle = "red";
 
     for(g=0; g < arrayLetrasIncorrectas.length; g++){
-      pincel.fillText(arrayLetrasIncorrectas[g],separacion,400);
+      pincel.fillText(arrayLetrasIncorrectas[g],separacion,300);
       separacion = separacion + 30;
-      pincel.moveTo(separacion,400);
+      pincel.moveTo(separacion,300);
     }
     pincel.stroke();
     
@@ -173,13 +173,13 @@ function drawFinJuego() {
 
   function drawFinJuego(texto){
 
-    pincel.font = "30px Comic Sans MS";
+    pincel.font = "40px Comic Sans MS";
     if(texto == "Fin del Juego!"){
       pincel.fillStyle ="red";
     }else{
       pincel.fillStyle = "green";
     }
-    pincel.fillText(texto,520,200);
+    pincel.fillText(texto,520,150);
     pincel.stroke();
   }
 

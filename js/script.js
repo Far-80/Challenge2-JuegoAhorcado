@@ -2,12 +2,12 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
-function listaPalabras (){
-    var palabras = ["DESAYUNO","GENIO","ESTADIO","LUNA","HOJA","ELEFANTE"];
-    var cantidadPalabras = getRandomInt(0, palabras.length);
-    return palabras[cantidadPalabras];
+function listaPalabras (basePalabras){
+    var cantidadPalabras = getRandomInt(0, basePalabras.length);
+    return basePalabras[cantidadPalabras];
 }
 
+var basePalabras = ["DESAYUNO","GENIO","ESTADIO","LUNA","HOJA","ELEFANTE"];
 var botonInicioPresionado = false;
 var palabraRandom;
 var arrayLetrasCorrectas = [];
@@ -63,6 +63,27 @@ function ganador (palabraRandom, aciertos){
     return fin;
 }
 
+function validarCaracter(caracter){
+    var valido = false;
+    const patron = new RegExp("[A-ZÑ]");
+    if (caracter.length == 1 && botonInicioPresionado && patron.test(caracter)){
+        valido = true;
+    }
+    return valido;
+}
+
+function validarTexto (texto){
+    const patron = new RegExp("[A-ZÑ]$");
+    const espacio = /\s/;
+    var valido = false;
+    if (patron.test(texto) && !espacio.test(texto)){
+        valido = true;
+    }
+    return valido;
+}
+
+
+
 document.addEventListener('keydown', function(event){
     var keyName = event.key;
     keyName = keyName.toUpperCase();
@@ -85,26 +106,23 @@ document.addEventListener('keydown', function(event){
 
         if (finJuego (arrayLetrasIncorrectas.length)){
             drawFinJuego("Fin del Juego!");
+            document.getElementById("input-text").style.display = "block";
             finalJuego = true;
         }
 
         if (ganador(palabraRandom,arrayLetrasCorrectas) && 
             !finalJuego){
                 drawFinJuego("Ganaste, felicidades");
+                document.getElementById("input-text").style.display = "block";
                 finalJuego = true;
             }
     }
         
 });
 
-function validarCaracter(caracter){
-    var valido = false;
-    const patron = new RegExp("[A-Z]");
-    if (caracter.length == 1 && botonInicioPresionado && patron.test(caracter)){
-        valido = true;
-    }
-    return valido;
-}
+document.addEventListener("DOMContentLoaded", function () { 
+    document.getElementById("input-text").style.display = "block";
+ });
 
 var iniciarJuego = document.querySelector("#btn-iniciar");
 iniciarJuego.addEventListener("click", function (evt){
@@ -113,9 +131,54 @@ iniciarJuego.addEventListener("click", function (evt){
     arrayLetrasCorrectas = [];
     arrayLetrasIncorrectas =[];
     finalJuego = false;
-    palabraRandom = listaPalabras();
+
+    document.getElementById("input-text").style.display = "none";
+    palabraRandom = listaPalabras(basePalabras);
     console.log(palabraRandom);
 
     drawGuiones(palabraRandom);
     botonInicioPresionado = true;
+    
+    console.log(basePalabras);
+});
+
+//cada vez que se refresca la pagina se carga en la base de palabras la ultima ingresada
+// por el usuario
+(()=>{
+    if (localStorage.getItem("palabraNueva"+ basePalabras.length) != null){
+        for(i=0; i < localStorage.length; i++){
+            basePalabras.push(localStorage.getItem("palabraNueva"+basePalabras.length));
+        }
+    }
+})();
+
+var btnAgregar = document.querySelector("#btn-agregar");
+btnAgregar.addEventListener("click", function(evt){
+    evt.preventDefault();
+    var palabraRepetida = false;
+    botonInicioPresionado = false;
+    var agregarPalabra = document.querySelector("#agregar-palabra");
+    var palabraNueva = agregarPalabra.value.toUpperCase();
+    
+    if (validarTexto(palabraNueva)){
+        for(j=0; j < basePalabras.length; j++){
+            if (basePalabras[j] == palabraNueva){
+                palabraRepetida = true;
+                break;
+            }
+        };
+        for(i=0; i < localStorage.length; i++){
+            if (localStorage.getItem("palabraNueva"+basePalabras.length) == palabraNueva){
+                palabraRepetida = true;
+                break;
+            }
+        };
+
+        if (!palabraRepetida){
+            localStorage.setItem("palabraNueva" + basePalabras.length,palabraNueva);
+            basePalabras.push(palabraNueva);
+        };
+    };
+    
+    agregarPalabra.value = "";
 })
