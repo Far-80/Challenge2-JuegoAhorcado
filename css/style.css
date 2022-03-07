@@ -90,3 +90,55 @@ input[type=text] {
 #hide-me {
   display:block;
 }
+
+.pie-pagina{
+  display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 32px;
+
+position: static;
+width: 1440px;
+height: 102px;
+left: 0px;
+top: 788px;
+
+/* Preto/branco */
+
+background: #FFFFFF;
+
+/* Inside auto layout */
+
+flex: none;
+order: 1;
+flex-grow: 0;
+margin: 0px 0px;
+}
+
+.pie-pagina span{
+  position: static;
+width: 270px;
+height: 38px;
+left: 605.5px;
+top: 32px;
+
+font-family: Raleway;
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 19px;
+text-align: center;
+
+/* Preto/100% */
+
+color: #464646;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+margin: 0px 10px;
+}
